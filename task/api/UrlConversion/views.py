@@ -3,11 +3,16 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import UrlConversion
 from .serializer import UrlConversionReadSerializer, UrlConversionWriteSerializer
+from rest_framework.throttling import UserRateThrottle
 
-class UrlConversionCreate(APIView):
+class BurstRateThrottle(UserRateThrottle):
+    rate = '20/minute'
+
+class UrlConversionView(APIView):
+    throttle_classes = [BurstRateThrottle]
 
     def post(self, request, *args, **kwargs):
-        serializer = UrlConversionWriteSerializer(data=request.data)
+        serializer = UrlConversionWriteSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             try:
                 url_conversion = UrlConversion.objects.get(link=serializer.validated_data['link'])
