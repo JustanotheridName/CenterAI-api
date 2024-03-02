@@ -3,10 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import UrlConversion
 from .serializer import UrlConversionReadSerializer, UrlConversionWriteSerializer
-from rest_framework.throttling import UserRateThrottle
-
-class BurstRateThrottle(UserRateThrottle):
-    rate = '20/minute'
+from ...Throttles.BurstRateThrottle import BurstRateThrottle
 
 class UrlConversionView(APIView):
     throttle_classes = [BurstRateThrottle]

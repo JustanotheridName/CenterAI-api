@@ -17,6 +17,6 @@ Including another URLconf
 from django.urls import path, include
 
 urlpatterns = [
-    path('conversion', include("api.UrlConversion.urls")),
-    path('<str:short_code>', include("api.Redirect.urls")),
+    path('conversion', include("api.Modules.UrlConversion.urls")),
+    path('<str:short_code>', include("api.Modules.Redirect.urls")),
 ]

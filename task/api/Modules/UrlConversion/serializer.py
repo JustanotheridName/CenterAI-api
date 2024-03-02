@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import UrlConversion
-from ..Helpers.UrlConversion import UrlConversionHelper
+from ...Helpers.UrlConversion import UrlConversionHelper
 
 class UrlConversionWriteSerializer(serializers.ModelSerializer):
     link = serializers.URLField()
