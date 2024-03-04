@@ -1,0 +1,19 @@
+# Użyj oficjalnie utworzonego obrazu Pythona jako bazowego obrazu
+FROM python:3.9-slim as base
+
+# Ustawiamy zmienną środowiskową Pythona dla konsoli
+ENV PYTHONUNBUFFERED=1
+
+# Ustawiamy katalog roboczy w kontenerze
+WORKDIR /app
+
+# Instalujemy zależności Pythona
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+EXPOSE 8000
+# Kopiujemy resztę plików aplikacji
+COPY . .
+
+# Domyślne polecenie, które zostanie wykonane przy uruchamianiu kontenera
+CMD ["python", "manage.py", "runserver"]
